@@ -1,428 +1,139 @@
+# [Bootstrap](http://getbootstrap.com)
 
-# js-framework-benchmark
+[![Slack](https://bootstrap-slack.herokuapp.com/badge.svg)](https://bootstrap-slack.herokuapp.com)
+![Bower version](https://img.shields.io/bower/v/bootstrap.svg)
+[![npm version](https://img.shields.io/npm/v/bootstrap.svg)](https://www.npmjs.com/package/bootstrap)
+[![Build Status](https://img.shields.io/travis/twbs/bootstrap/master.svg)](https://travis-ci.org/twbs/bootstrap)
+[![devDependency Status](https://img.shields.io/david/dev/twbs/bootstrap.svg)](https://david-dm.org/twbs/bootstrap#info=devDependencies)
+[![NuGet](https://img.shields.io/nuget/v/bootstrap.svg)](https://www.nuget.org/packages/Bootstrap)
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/bootstrap.svg)](https://saucelabs.com/u/bootstrap)
 
-This is a simple benchmark for several javascript frameworks. The benchmarks creates a large table with randomized entries and measures the time for various operations including rendering duration.
+Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development, created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thornton](https://twitter.com/fat), and maintained by the [core team](https://github.com/orgs/twbs/people) with the massive support and involvement of the community.
 
-![Screenshot](images/screenshot.png?raw=true "Screenshot")
+To get started, check out <http://getbootstrap.com>!
 
-## About the benchmarks
 
-The following operations are benchmarked for each framework:
+## Table of contents
 
-- create rows: Duration for creating 1,000 rows after the page loaded (no warmup).
-- replace all rows: Duration for replacing all 1,000 rows of the table (with 5 warmup iterations).
-- partial update: Time to update the text of every 10th row for a table with 10,000 rows (with 5 warmup iterations).
-- select row: Duration to highlight a row in response to a click on the row. (with 5 warmup iterations).
-- swap rows: Time to swap 2 rows on a table with 1,000 rows. (with 5 warmup iterations).
-- remove row: Duration to remove a row for a table with 1,000 rows. (with 5 warmup iterations).
-- create many rows: Duration to create 10,000 rows (no warmup)
-- append rows to large table: Duration for adding 1,000 rows on a table of 10,000 rows (no warmup).
-- clear rows: Duration to clear the table filled with 10,000 rows. (no warmup)
-- ready memory: Memory usage after page load.
-- run memory: Memory usage after adding 1,000 rows.
-- update memory: Memory usage after clicking 5 times update for a table with 1,000 rows.
-- replace memory: Memory usage after clicking 5 times create 1,000 rows.
-- repeated clear memory: Memory usage after creating and clearing 1,000 rows for 5 times.
-- update memory: Memory usage after clicking 5 times update for a table with 1,000 rows.
-- startup time: Duration for loading and parsing the javascript code and rendering the page.
-- consistently interactive: The lighthouse metric TimeToConsistentlyInteractive: A pessimistic TTI - when the CPU and network are both definitely very idle. (no more CPU tasks over 50ms)
-- script bootup time: The lighthouse metric ScriptBootUpTtime: The total ms required to parse/compile/evaluate all the page's scripts
-- main thread work cost: The lighthouse metric MainThreadWorkCost: Total amount of time spent doing work on the main thread. includes style/layout/etc.
-- total byte weight: The lighthouse metric TotalByteWeight: Network transfer cost (post-compression) of all the resources loaded into the page.
+* [Quick start](#quick-start)
+* [Bugs and feature requests](#bugs-and-feature-requests)
+* [Documentation](#documentation)
+* [Contributing](#contributing)
+* [Community](#community)
+* [Versioning](#versioning)
+* [Creators](#creators)
+* [Copyright and license](#copyright-and-license)
 
-For all benchmarks the duration is measured including rendering time. You can read some details on this [article](http://www.stefankrause.net/wp/?p=218).
 
-## Official results
+## Quick start
 
-Official results are posted on the [official results page](https://krausest.github.io/js-framework-benchmark/index.html).
-My [blog](http://www.stefankrause.net/wp) has a few articles about the benchmark.
-Older results of this benchmark are outlined on my blog ([round 1](http://www.stefankrause.net/wp/?p=191), [round 2](http://www.stefankrause.net/wp/?p=283), [round 3](http://www.stefankrause.net/wp/?p=301), [round 4](http://www.stefankrause.net/wp/?p=316), [round 5](http://www.stefankrause.net/wp/?p=392), [round 6](http://www.stefankrause.net/wp/?p=431), [round 7](http://www.stefankrause.net/wp/?p=454) and [round 8](http://www.stefankrause.net/wp/?p=504)).
+Several quick start options are available:
 
-## Snapshot of the results
+* [Download the latest release](https://github.com/twbs/bootstrap/archive/v3.3.6.zip).
+* Clone the repo: `git clone https://github.com/twbs/bootstrap.git`.
+* Install with [Bower](http://bower.io): `bower install bootstrap`.
+* Install with [npm](https://www.npmjs.com): `npm install bootstrap`.
+* Install with [Meteor](https://www.meteor.com): `meteor add twbs:bootstrap`.
+* Install with [Composer](https://getcomposer.org): `composer require twbs/bootstrap`.
 
-The current snapshot that may not have the same quality (i.e.
-results might be for mixed browser versions, number of runs per benchmark may vary) can be seen [here](https://krausest.github.io/js-framework-benchmark/current.html)
-[![Results](images/results.png?raw=true "Results")](https://krausest.github.io/js-framework-benchmark/current.html)
+Read the [Getting started page](http://getbootstrap.com/getting-started/) for information on the framework contents, templates and examples, and more.
 
-# 1 NEW: Run pre-built binaries for all frameworks
+### What's included
 
-There are currently ~60 framework entries in this repository. Installing (and maintaining) those can be challenging, but here are simplified instructions how to get started.
-
-## 1.1 Prerequisites
-
-Have _node.js (>=v16.14.2)_ installed. If you want to do yourself a favour use nvm for that and install yarn. The benchmark has been tested with node vv16.14.2.
-Please make sure that the following command work before trying to build:
+Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
 
 ```
-> npm
-npm -version
-8.5.0
-> node --version
-v16.14.2
+bootstrap/
+├── css/
+│   ├── bootstrap.css
+│   ├── bootstrap.css.map
+│   ├── bootstrap.min.css
+│   ├── bootstrap.min.css.map
+│   ├── bootstrap-theme.css
+│   ├── bootstrap-theme.css.map
+│   ├── bootstrap-theme.min.css
+│   └── bootstrap-theme.min.css.map
+├── js/
+│   ├── bootstrap.js
+│   └── bootstrap.min.js
+└── fonts/
+    ├── glyphicons-halflings-regular.eot
+    ├── glyphicons-halflings-regular.svg
+    ├── glyphicons-halflings-regular.ttf
+    ├── glyphicons-halflings-regular.woff
+    └── glyphicons-halflings-regular.woff2
 ```
 
-## 1.2 Downloading the pre-built binaries and starting the server
-Builiding all frameworks can be challenging. There's a new way that allows to skip that and just run the benchmark without builiding all implementationss.
-
-
-Start with checking out a tagged release like that. Pick the release that you want (e.g. chrome 100):
-```
-git clone https://github.com/krausest/js-framework-benchmark.git
-cd js-framework-benchmark
-git checkout chrome100 -b release
-npm ci && npm run install-local
-```
-Download the build.zip for that release from https://github.com/krausest/js-framework-benchmark/releases
-and put the build.zip into the js-framework-benchmark directory and unzip the prebuilt files:
-```
-unzip build.zip
-```
-You're now ready to start the http-server. Let the server run in the background
-```
-npm start
-```
-## 1.3 Running the benchmarks and handling errors
-
-In a new console window you can now run the benchmarks:
-```
-npm run bench
-```
-
-This will take some time (currently about 12 hours on my machine). Finally create the results table:
-```
-npm run results
-```
-
-Open js-framework-benchmark/webdriver-ts-results/table.html in a browser and take a look at the results. You can open the result table with the link [http://localhost:8080/webdriver-ts-results/table.html](http://localhost:8080/webdriver-ts-results/table.html)
-
-
-Here's what you should do when the benchmark run was not sucessful. Let's assume the benchmark printed the following to the console:
-```
-================================
-The following benchmarks failed:
-================================
-Executing frameworks/non-keyed/ef-js and benchmark 04_select1k failed: No paint event found
-run was not completely sucessful Benchmarking failed with errors
-```
-You'll now have to run the benchmark again for those that failed like that:
-```
-npm run bench -- --framework non-keyed/ef-js --benchmark 04_
-```
-The you can then continue with creating the results table `npm run results`.
-Another workaround is to delete the folders of frameworks you can't run or you are not interested in.
-
-# 2 The old and hard way: Building the frameworks and running the benchmark 
+We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`bootstrap.min.*`). CSS [source maps](https://developer.chrome.com/devtools/docs/css-preprocessors) (`bootstrap.*.map`) are available for use with certain browsers' developer tools. Fonts from Glyphicons are included, as is the optional Bootstrap theme.
 
-## 2.1 Prerequisites
 
-Have _node.js (>=v16.14.2)_ installed. If you want to do yourself a favour use nvm for that and install yarn. The benchmark has been tested with node vv16.14.2.
-For some frameworks you'll also need _java_ (>=8, e.g. openjdk-8-jre on ubuntu).
-Please make sure that the following command work before trying to build:
+## Bugs and feature requests
 
-```
-> npm
-npm -version
-8.5.0
-> node --version
-v16.14.2
-> echo %JAVA_HOME% / echo $JAVA_HOME
-> java -version
-java version "1.8.0_131" ...
-> javac -version
-javac 1.8.0_131
-```
+Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md#using-the-issue-tracker) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/twbs/bootstrap/issues/new).
 
-## 2.2 Start installing
 
-As stated above building and running the benchmarks for all frameworks can be challenging, thus we start step by step...
+## Documentation
 
-Install global dependencies
-This installs just a few top level dependencies for the building the frameworks and a local web server.
+Bootstrap's documentation, included in this repo in the root directory, is built with [Jekyll](http://jekyllrb.com) and publicly hosted on GitHub Pages at <http://getbootstrap.com>. The docs may also be run locally.
 
-```
-npm ci
-```
-Then install the server:
-```
-npm run install-server
-```
+### Running documentation locally
 
-We start the local web server in the root directory
+1. If necessary, [install Jekyll](http://jekyllrb.com/docs/installation) (requires v3.0.x).
+   **Note for Windows users:** Read [this unofficial guide](http://jekyll-windows.juthilo.com/) to get Jekyll up and running without problems.
+2. Install the Ruby-based syntax highlighter, [Rouge](https://github.com/jneen/rouge), with `gem install rouge`.
+3. From the root `/bootstrap` directory, run `jekyll serve` in the command line.
+4. Open `http://localhost:9001` in your browser, and voilà.
 
-```
-npm start
-```
+Learn more about using Jekyll by reading its [documentation](http://jekyllrb.com/docs/home/).
 
-Verify that the local web server works:
-Try to open [http://localhost:8080/index.html](http://localhost:8080/index.html). If you see something like that you're on the right track:
-![Index.html](images/index.png?raw=true "Index.html")
+### Documentation for previous releases
 
-Now open a new terminal window and keep the web server running in background.
+Documentation for v2.3.2 has been made available for the time being at <http://getbootstrap.com/2.3.2/> while folks transition to Bootstrap 3.
 
-## 2.3 Building and viewing a single framework
+[Previous releases](https://github.com/twbs/bootstrap/releases) and their documentation are also available for download.
 
-We now try to build the first framework. Go to the vanillajs reference implementation
 
-```
-cd frameworks/keyed/vanillajs
-```
+## Contributing
 
-and install the dependencies
+Please read through our [contributing guidelines](https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
-```
-npm ci
-```
+Moreover, if your pull request contains JavaScript patches or features, you must include [relevant unit tests](https://github.com/twbs/bootstrap/tree/master/js/tests). All HTML and CSS should conform to the [Code Guide](https://github.com/mdo/code-guide), maintained by [Mark Otto](https://github.com/mdo).
 
-and build the framework
+Editor preferences are available in the [editor config](https://github.com/twbs/bootstrap/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <http://editorconfig.org>.
 
-```
-npm run build-prod
-```
 
-There should be no build errors and we can open the framework in the browser:
-[http://localhost:8080/frameworks/keyed/vanillajs/](http://localhost:8080/frameworks/keyed/vanillajs/)
+## Community
 
-Some frameworks like binding.scala or ember can't be opened that way, because they need a 'dist' or 'target/web/stage' or something in the URL. You can find out the correct URL in the [index.html](http://localhost:8080/index.html) you've opened before or take a look whether there's a customURL property under js-framework-benchmark in the [package.json](https://github.com/krausest/js-framework-benchmark/blob/master/frameworks/keyed/ember/package.json#L10) that represents the url.
+Get updates on Bootstrap's development and chat with the project maintainers and community members.
 
-## 2.4 Running benchmarks for a single framework
+* Follow [@getbootstrap on Twitter](https://twitter.com/getbootstrap).
+* Read and subscribe to [The Official Bootstrap Blog](http://blog.getbootstrap.com).
+* Join [the official Slack room](https://bootstrap-slack.herokuapp.com).
+* Chat with fellow Bootstrappers in IRC. On the `irc.freenode.net` server, in the `##bootstrap` channel.
+* Implementation help may be found at Stack Overflow (tagged [`twitter-bootstrap-3`](https://stackoverflow.com/questions/tagged/twitter-bootstrap-3)).
+* Developers should use the keyword `bootstrap` on packages which modify or add to the functionality of Bootstrap when distributing through [npm](https://www.npmjs.com/browse/keyword/bootstrap) or similar delivery mechanisms for maximum discoverability.
 
-The benchmark uses an automated benchmark driver using chromedriver to measure the duration for each operation using chrome's timeline. Here are the steps to run is for a single framework:
 
-```
-cd ../../..
-cd webdriver-ts
-```
+## Versioning
 
-and install the dependencies
+For transparency into our release cycle and in striving to maintain backward compatibility, Bootstrap is maintained under [the Semantic Versioning guidelines](http://semver.org/). Sometimes we screw up, but we'll adhere to those rules whenever possible.
 
-```
-npm ci
-```
+See [the Releases section of our GitHub project](https://github.com/twbs/bootstrap/releases) for changelogs for each release version of Bootstrap. Release announcement posts on [the official Bootstrap blog](http://blog.getbootstrap.com) contain summaries of the most noteworthy changes made in each release.
 
-and build the benchmark driver
 
-```
-npm run compile
-```
+## Creators
 
-now run the benchmark driver for the vanillajs-keyed framework:
+**Mark Otto**
 
-```
-npm run bench keyed/vanillajs
-```
+* <https://twitter.com/mdo>
+* <https://github.com/mdo>
 
-Just lean back and watch chrome run the benchmarks.
-If it doesn't complain then the html for the table should be fine and your categorization as keyed or non-keyed should also be correct.
+**Jacob Thornton**
 
-You should keep the chrome window visible since otherwise it seems like paint events can be skipped leading to wrong results. On the terminal will appear various log statements.
+* <https://twitter.com/fat>
+* <https://github.com/fat>
 
-The results for that run will be saved in the `webdriver-ts/results` directory. We can take a look at the results of a single result:
 
-```
-cat results/vanillajs-keyed_01_run1k.json
-{"framework":"vanillajs-keyed","benchmark":"01_run1k","type":"cpu","min":135.532,"max":154.821,"mean":143.79166666666666,"median":141.022,"geometricMean":143.56641695989177,"standardDeviation":8.114582360718808,"values":[154.821,135.532,141.022]}
-```
+## Copyright and license
 
-As you can see the mean duration for create 1000 rows was 144 msecs.
-
-You can also check whether the implementation appears to be compliant to the rules:
-
-```
-npm run isKeyed keyed/vanillajs
-```
-
-If it finds anything it'll report an ERROR.
-
-## 2.5 Building the result table
-
-Install libraries:
-
-```
-cd ..
-cd webdriver-ts-results
-npm ci
-cd ..
-cd webdriver-ts
-```
-
-In the webdriver-ts directory issue the following command:
-
-```
-npm run results
-```
-
-Now a result table should have been created which can be opened on [http://localhost:8080/webdriver-ts-results/dist/index.html](http://localhost:8080/webdriver-ts-results/dist/index.html).
-There's nothing in table except for the column vanillajs-keyed at the right end of the first table.
-![First Run Results](images/staticResults.png?raw=true "First Run Results")
-
-## 2.6 [Optional] Updating the index.html file
-
-This simply rebuilds the file used to display the table, not the results.
-
-```
-npm run index
-```
-
-## 2.7 [Optional] Building and running the benchmarks for all frameworks
-
-This is not for the faint at heart. You can build all frameworks simply by issuing:
-
-```
-cd ..
-npm run build-prod
-```
-
-After downloading the whole internet it starts building it. Basically there should be no errors during the build, but I can't guarantee that the dependencies won't break. 
-
-You can now run the benchmark for all frameworks by invoking:
-
-```
-npm run bench-all
-```
-
-in the root directory.
-
-After that you can check all results in [http://localhost:8080/webdriver-ts/table.html](http://localhost:8080/webdriver-ts/table.html).
-
-# 3 Tips and tricks
-
-- You can run multiple implementations by passing their directory names (cd to webdriver-ts):
-  `npm run bench keyed/angular keyed/react`.
-- You can select multiple frameworks and benchmarks for running with prefixes like in the following example in the webdriver-ts directory:
-  `npm run bench -- --benchmark 01_ 02_ --framework keyed/vanillajs keyed/react-hooks`
-  runs the test for all frameworks that contain either angular or bob, which means all angular versions and bobril and all benchmarks whose id contain 01* or 02*
-- The memory benchmarks assume certain paths for the chrome installation. If it doesn't fit use
-  `npm run bench -- --chromeBinary /usr/bin/google-chrome`
-- If you can't get one framework to compile or run, just move it out of the frameworks directory and re-run
-- One can check whether an implementation is keyed or non-keyed via `npm run isKeyed` in the webdriver-ts directory. You can limit which frameworks to check in the same way as the webdriver test runner like e.g. `npm run isKeyed keyed/svelte`. The program will report an error if a benchmark implementation is incorrectly classified.
-
-## 4. Contributing a new implementation
-
-## 4.1 Building the app
-
-For contributions it is basically sufficient to create a new directory for your framework that supports `npm install` and `npm run build-prod` and can be then opened in the browser. All other steps are optional. Let's simulate that by copying vanillajs.
-
-```
-cd ../frameworks/keyed
-cp -r vanillajs super-vanillajs
-cd super-vanillajs
-```
-
-Then we edit super-vanillajs/index.html to have a correct index.html:
-
-```
-<title>Super-VanillaJS-"keyed"</title>
-...
-                    <h1>Super-VanillaJS-"keyed"</h1>
-```
-
-In most cases you'll need `npm install` and `npm run build-prod` and then check whether it works in the browser on [http://localhost:8080/frameworks/keyed/super-vanillajs/](http://localhost:8080/frameworks/keyed/super-vanillajs/).
-
-(Of course in reality you'd rather throw out the javascript source files and use your framework there instead of only changing the html file.)
-
-## 4.2 Adding your new implementation to the results table.
-
-(Notice: Updating common.ts is no longer necessary, super-vanillajs is visible in the result table)
-
-Your package.json must include some information for the benchmark. Since you copied it, the important section is already there:
-
-```
-  ...
-  "js-framework-benchmark": {
-    "frameworkVersion": "",
-    "frameworkHomeURL": ""
-  },
-  ...
-```
-
-This one is a bit exceptional since vanillajs has no version and there no framework involved. If you use a normal framework like react it carries a version information and the framework should have an URL. For most frameworks you'll add a
-dependency to your framework in package.json. The benchmark can automatically determine the correct version information from package.json and package-lock.json if you specify the
-package name like that:
-
-```
-  "js-framework-benchmark": {
-    "frameworkVersionFromPackage": "react"
-    "frameworkHomeURL": "https://www.reactjs.org"
-  },
-```
-
-Now the benchmark will fetch the installed react version from package-lock.json in the react directory and use that version number to compute the correct version string.
-If your library has multiple important packages like react + redux you can put them separated with a colon there like "react:redux".
-If you don't pull your framework from npm you can hardcode a version like `"frameworkVersion": "0.0.1"`.
-The other important, but optional properties for js-framework-benchmark are shown in the following example:
-
-```
-"customURL": "/target/web/stage",
-"useShadowRoot": true
-```
-
-You can set an optional different URL if needed or specify that your DOM uses a shadow root.
-
-## 4.3 Submitting your implementation
-
-Contributions are very welcome. Please use the following rules:
-
-- Name your directory frameworks/[keyed|non-keyed]/[FrameworkName]
-- The package.json in your directory must contain some important information see section 4.2 above.
-- Each contribution must be buildable by `npm install` and `npm run build-prod` command in the directory. What build-prod does is up to you. Often there's an `npm run build-dev` that creates a development build
-- Every implementation must use bootstrap provided in the root css directory.
-- All npm dependencies should be installed locally (i.e. listed in your package.json). Http-server or other local web servers should not be local dependencies. It is installed from the root directory to allow access to bootstrap.
-- Please use _fixed version_ numbers, no ranges, in package.json. Otherwise the build will break sooner or later - believe me. Updating works IMO best with npm-check-updates, which keeps the version format.
-- Webdriver-ts must be able to run the perf tests for the contribution. This means that all buttons (like "Create 1,000 rows") must have the correct id e.g. like in vanillajs. Using shadow DOM is a real pain for webdriver. The closer you can get to polymer the higher the chances I can make that contribution work.
-- Don't change the ids in the index.html, since the automated benchmarking relies on those ids.
-- Please push only files in your framework folder (not index.html or results.json)
-- **Please make sure your implementation is validated by the test tool.** cd to webdriver-ts and invoke it with `npm run isKeyed [keyed|non-keyed]/[FrameworkName]`. It'll print an error if your framework behaves other as specified. It'll print a big ERROR explaining if it isn't happy with the implementation. Some common errors include:
-  - Your package.json is missing some required fields
-  - Incorrect classification (Keyed/NonKeyed)
-  - You have gzipped files in /dist (unfortunately the web server prefers these when they exist)
-- Please don't commit any of the result file webdriver-ts/table.html, webdriver-ts-results/src/results.ts or webdriver-ts-results/table.html. I use to run the benchmarks after merging and publish updated (temporary) results.
-- The latest stable chrome can be used regarding web features and language level (babel-preset-env "last 1 chrome versions")
-- The vanillajs implementations and some others include code that try to approximate the repaint duration through javascript code. Implementations are not required to include that measurement. Remember: The real measurements are taken by the automated test driver by examining chrome timeline entries.
-- **Please don't over-optimize.** This benchmark is most useful if you apply an idiomatic style for the framework you're using. We've sharpened the rules what kind of implementation is considered correct and will add errors or notes when an implementations handles things wrongly (errors) or in a way that looks like a shortcut (notes).
-  - The html must be identical with the one created by the reference implementation vanillajs. It also must include all the aria-hidden attributes. Otherwise the implementation is considered erroneous and will be marked with issue [#634](https://github.com/krausest/js-framework-benchmark/issues/634).
-  - Keyed implementations must pass the `npm run isKeyed` test in the test driver otherwise they are erroneous. Not that this test might not be sufficient, but just necessary to be keyed (from time to time we find new loop holes). There's error [#694](https://github.com/krausest/js-framework-benchmark/issues/694) for such cases.
-  - Using request animation frame calls in client code, especially when applied only for some benchmark operations, is considered bad style and gets note [#796](https://github.com/krausest/js-framework-benchmark/issues/796) applied. Note that frameworks are free to choose whether they use RAF of not.
-  - Manual DOM manipulation (like setting the danger class directly on the selected row) lead to some controversial debates. Depending on the framework you're using it might be idiomatic style or not. In any case it gets note [#772](https://github.com/krausest/js-framework-benchmark/issues/772) applied.
-  - Implementations should keep the selected rows in the state (i.e. not a flag for each row, but one reference, id or index for the table) and use that information for rendering. Keeping a selection flag for each row might be faster, but it's considered bad style. Thus those implementations get note [#800](https://github.com/krausest/js-framework-benchmark/issues/800).
-  - Explicit event delegation is another area where many discussions came up. Implementations that use explicit event delegation in client code get note [#801](https://github.com/krausest/js-framework-benchmark/issues/801). Frameworks themselves are free to use event delegation.
-
-Helpful tips:
-
-- Do not start your implementation using vanillajs as the reference. It uses direct DOM manipulation (and thus has note [#772](https://github.com/krausest/js-framework-benchmark/issues/772)) and serves only as a performance baseline but not as a best practice implementation. Instead pick a framework which is similar to yours.
-- Do not forget to preload the glyphicon by adding this somewhere in your HTML: `<span class="preloadicon glyphicon glyphicon-remove" aria-hidden="true"></span>` or you will get terrible performance.
-- Be careful not to leave gzipped files in your /dist directory. Unfortunately the web server prefers these when they exist and we cannot change that (meaning you could be observing an outdated build).
-
-This work is derived from a benchmark that Richard Ayotte published on https://gist.github.com/RichAyotte/a7b8780341d5e75beca7 and adds more framework and more operations. Thanks for the great work.
-
-Thanks to Baptiste Augrain for making the benchmarks more sophisticated and adding frameworks.
-
-# History
-
-Frameworks without significant activity on github or npm for more than a year will be removed (_automatic commits like dependabot and minor updates, like docs editions, are ignored_).
-
-Will be removed in future:
-
-- [ ] crui Last significant commit Jul 28, 2019
-
-## 2020-7-9
-
-- [x] etch Last commit Sep 12, 2018
-- [x] hyperoop Last significant commit Dec 23, 2018
-- [x] faster-dom (to be replaced by a new revact implementation)
-- [x] plastiq (to be replaced by a new Hyperdom implementation)
-- [x] rawact Last commit Dec 3, 2018
-- [x] react-djinn Last NPM publish 2019-05-03 (the Github org a repo aren't available anymore)
-- [x] react-lite Last commit Mar 29, 2019
-- [x] redux-combiner Last commit May 14, 2018
-- [x] surplus Last commit Jan 5, 2019
-- [x] gruu Last commit Jun 23, 2019
-- [x] lite-html Last commit Sep 7, 2018
-
-## 2019-9-16
-
-- [x] angular-light Last commit Nov 30, 2017
-- [x] nx. Last commit Feb 2017
-- [x] maik-h Last commit Dec 15, 2017
-- [x] rivets Last commit Oct 22, 2016
-- [x] tsers. Last commit Jun 19, 2016
-
+Code and documentation copyright 2011-2015 Twitter, Inc. Code released under [the MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/twbs/bootstrap/blob/master/docs/LICENSE).
